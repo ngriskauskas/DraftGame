@@ -1,0 +1,4 @@
+C:\Users\Noah\source\repos\DraftGame\Draft.Inf\obj\Debug\netstandard2.0\Draft.Inf.csprojAssemblyReference.cache
+C:\Users\Noah\source\repos\DraftGame\Draft.Inf\obj\Debug\netstandard2.0\Draft.Inf.csproj.CoreCompileInputs.cache
+C:\Users\Noah\source\repos\DraftGame\Draft.Inf\obj\Debug\netstandard2.0\Draft.Inf.AssemblyInfoInputs.cache
+C:\Users\Noah\source\repos\DraftGame\Draft.Inf\obj\Debug\netstandard2.0\Draft.Inf.AssemblyInfo.cs

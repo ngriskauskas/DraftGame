@@ -1,0 +1,9 @@
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\obj\Debug\netstandard2.0\Draft.Core.csprojAssemblyReference.cache
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\obj\Debug\netstandard2.0\Draft.Core.csproj.CoreCompileInputs.cache
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\obj\Debug\netstandard2.0\Draft.Core.AssemblyInfoInputs.cache
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\obj\Debug\netstandard2.0\Draft.Core.AssemblyInfo.cs
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\bin\Debug\netstandard2.0\Draft.Core.deps.json
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\bin\Debug\netstandard2.0\Draft.Core.dll
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\bin\Debug\netstandard2.0\Draft.Core.pdb
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\obj\Debug\netstandard2.0\Draft.Core.dll
+C:\Users\Noah\source\repos\DraftGame\Draft.Core\obj\Debug\netstandard2.0\Draft.Core.pdb
