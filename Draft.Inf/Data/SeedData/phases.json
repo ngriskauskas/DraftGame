@@ -1,0 +1,74 @@
+[
+  {
+    "PhaseType": 0,
+    "MaxRosterSize": 100,
+    "CanTrade": true,
+    "Date": "01-01"
+  },
+  {
+    "PhaseType": 1,
+    "MaxRosterSize": 100,
+    "CanTrade": true,
+    "Date": "02-15"
+  },
+  {
+    "PhaseType": 2,
+    "MaxRosterSize": 100,
+    "CanTrade": true,
+    "Date": "07-01"
+  },
+  {
+    "PhaseType": 3,
+    "MaxRosterSize": 50,
+    "CanTrade": true,
+    "Date": "07-15"
+  },
+  {
+    "PhaseType": 4,
+    "MaxRosterSize": 45,
+    "CanTrade": true,
+    "Date": "08-01"
+  },
+  {
+    "PhaseType": 5,
+    "MaxRosterSize": 40,
+    "CanTrade": true,
+    "Date": "08-15"
+  },
+  {
+    "PhaseType": 6,
+    "MaxRosterSize": 40,
+    "CanTrade": true,
+    "Date": "09-03"
+  },
+  {
+    "PhaseType": 7,
+    "MaxRosterSize": 40,
+    "CanTrade": false,
+    "Date": "10-22"
+  },
+  {
+    "PhaseType": 8,
+    "MaxRosterSize": 40,
+    "CanTrade": false,
+    "Date": "12-10"
+  },
+  {
+    "PhaseType": 9,
+    "MaxRosterSize": 40,
+    "CanTrade": false,
+    "Date": "12-17"
+  },
+  {
+    "PhaseType": 10,
+    "MaxRosterSize": 40,
+    "CanTrade": true,
+    "Date": "12-18"
+  },
+  {
+    "PhaseType": 11,
+    "MaxRosterSize": 40,
+    "CanTrade": true,
+    "Date": "12-31"
+  }
+]

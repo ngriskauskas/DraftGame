@@ -9,19 +9,23 @@ namespace Draft.Core.Entities
     {
         private readonly List<Phase> _phases = new List<Phase>();
 
-        public DateTime StartDate { get; }
-        public Standings Standings { get; }
-        public Draft Draft { get; set; }
+        public DateTime StartDate { get; private set; }
+        public Standings Standings { get; private set; }
+        public Draft Draft { get; private set; }
         public bool IsCompleted { get; private set; }
         public bool IsActive { get; private set; }
 
         public Phase CurPhase => _phases.SingleOrDefault(p => p.IsActive);
 
-        public Season(DateTime startDate, bool isCompleted, bool isActive)
+        private Season(bool isCompleted, bool isActive)
         {
-            StartDate = startDate;
             IsCompleted = isCompleted;
             IsActive = isActive;
+        }
+        public Season(Standings standings, DateTime startDate, bool isCompleted, bool isActive) : this(isCompleted, isActive)
+        {
+            Standings = standings;
+            StartDate = startDate;
         }
 
 

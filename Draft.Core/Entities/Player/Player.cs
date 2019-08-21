@@ -13,8 +13,8 @@ namespace Draft.Core.Entities
         public int VeteranRating { get; private set; }
         public int RookieRating { get; private set; }
         public IEnumerable<Injury> Injuries => new ReadOnlyCollection<Injury>(_injuries);
-        public PlayerPosition Position { get; set; }
-        public Team Team { get; set; }
+        public Position Position { get; private set; }
+        public Team Team { get; private set; }
         public bool IsRetired { get; set; } = false;
         public int Experience { get; set; } = 0;
 
@@ -24,7 +24,7 @@ namespace Draft.Core.Entities
             RookieRating = rookieRating;
             VeteranRating = veteranRating;
         }
-        public Player(Team team, PlayerPosition position, int rookieRating, int veteranRating)
+        public Player(Team team, Position position, int rookieRating, int veteranRating)
             : this(rookieRating, veteranRating)
         {
             Team = team;
@@ -34,5 +34,7 @@ namespace Draft.Core.Entities
 
         public bool IsRookie => Experience == 0;
         public int Rating => IsRookie ? RookieRating : VeteranRating;
+        public SubRole SubRole => Position.GetSubRole();
+        public Role Role => Position.GetRole();
     }
 }

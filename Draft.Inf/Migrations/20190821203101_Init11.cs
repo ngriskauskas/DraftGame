@@ -2,7 +2,7 @@
 
 namespace Draft.Inf.Migrations
 {
-    public partial class Test3 : Migration
+    public partial class Init11 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

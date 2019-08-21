@@ -12,6 +12,7 @@ namespace Draft.Core.Entities
 
 
         public DateTime Date { get; }
+        public List<GameTeam> GameTeams { get; private set; }
         public int HomeScore { get; private set; } = 0;
         public int AwayScore { get; private set; } = 0;
         public bool IsCompleted { get; private set; } = false;
@@ -29,7 +30,7 @@ namespace Draft.Core.Entities
                 else return AwayTeam;
             }
         }
-
+        private Game() { }
         public Game(DateTime date, Team homeTeam, Team awayTeam)
         {
             Date = date;

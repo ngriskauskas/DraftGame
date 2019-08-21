@@ -11,6 +11,12 @@ namespace Draft.Inf.Data
     public class AppDbContext : DbContext
     {
         public DbSet<Player> Players { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Record> Records { get; set; }
+        public DbSet<Season> Seasons { get; set; }
+        public DbSet<Standings> Standings { get; set; }
+        public DbSet<ArcTeam> ArcTeams { get; set; }
         private readonly IDomainEventDispatcher _dispatcher;
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
@@ -21,8 +27,16 @@ namespace Draft.Inf.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Player>()
+            .HasOne(p => p.Team)
+            .WithMany(t => t.Players);
+
+            builder.Entity<GameTeam>()
+            .HasKey(gt => new { gt.TeamId, gt.GameId });
+
+
+
             base.OnModelCreating(builder);
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         public override int SaveChanges()

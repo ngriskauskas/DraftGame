@@ -6,23 +6,28 @@ namespace Draft.Core.Entities
 {
     public class Standings : Entity
     {
-        private readonly List<ArcTeam> teams = new List<ArcTeam>();
+        private readonly List<ArcTeam> _teams = new List<ArcTeam>();
         public ArcTeam Champion { get; set; }
         public ArcTeam EastChamp { get; set; }
         public ArcTeam WestChamp { get; set; }
-        public List<Team> EastStandings =>
-            teams
+        public List<ArcTeam> EastStandings =>
+            _teams
             .Where(t => t.Division == Division.East)
             .OrderByDescending(t => t.Record.Wins + t.Record.Ties / 2)
-            .Select(t => t.Team)
             .ToList();
 
-        public List<Team> WestStandings =>
-            teams
-            .Where(t => t.Division == Division.East)
+        public List<ArcTeam> WestStandings =>
+            _teams
+            .Where(t => t.Division == Division.West)
             .OrderByDescending(t => t.Record.Wins + t.Record.Ties / 2)
-            .Select(t => t.Team)
             .ToList();
+
+        private Standings() { }
+        public Standings(List<ArcTeam> teams)
+        {
+            _teams = teams;
+        }
+
 
 
     }

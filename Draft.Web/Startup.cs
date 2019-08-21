@@ -55,7 +55,7 @@ namespace Draft.Web
             return new AutofacServiceProvider(applicationContainer);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -87,6 +87,8 @@ namespace Draft.Web
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            provider.GetService<AppDbContext>().InitLeague();
         }
     }
 }

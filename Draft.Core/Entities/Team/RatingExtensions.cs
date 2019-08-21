@@ -3,29 +3,29 @@ using System.Linq;
 
 namespace Draft.Core.Entities
 {
-    public static class RosterRatingExtensions
+    public static class RatingExtensions
     {
-        public static int CalcOffRating(this Roster roster)
+        public static int CalcOffRating(IEnumerable<Player> starters)
         {
-            return BaseOff(roster.Starters) + BonusOff(roster.Starters);
+            return BaseOff(starters) + BonusOff(starters);
         }
 
-        public static int CalcDefRating(this Roster roster)
+        public static int CalcDefRating(IEnumerable<Player> starters)
         {
-            return BaseDef(roster.Starters) + BonusDef(roster.Starters);
+            return BaseDef(starters) + BonusDef(starters);
         }
 
         private static int BaseOff(IEnumerable<Player> starters)
         {
             return starters
-                .Where(p => p.Position.Role == Role.Offense)
+                .Where(p => p.Role == Role.Offense)
                 .Sum(p => p.Rating);
         }
 
         private static int BaseDef(IEnumerable<Player> starters)
         {
             return starters
-                .Where(p => p.Position.Role == Role.Defense)
+                .Where(p => p.Role == Role.Defense)
                 .Sum(p => p.Rating);
         }
         private static int BonusOff(IEnumerable<Player> starters)
@@ -165,7 +165,7 @@ namespace Draft.Core.Entities
 
         private static int TotalRatingInPositions(IEnumerable<Player> players, params Position[] positions)
         {
-            return players.Where(p => positions.Contains(p.Position.Position)).Sum(p => p.Rating);
+            return players.Where(p => positions.Contains(p.Position)).Sum(p => p.Rating);
         }
 
     }
