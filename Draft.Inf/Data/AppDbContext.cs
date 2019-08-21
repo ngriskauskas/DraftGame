@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Reflection;
+using Draft.Core.Entities;
 using Draft.Core.Interfaces;
 using Draft.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace Draft.Inf.Data
 
     public class AppDbContext : DbContext
     {
+        public DbSet<Player> Players { get; set; }
         private readonly IDomainEventDispatcher _dispatcher;
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
