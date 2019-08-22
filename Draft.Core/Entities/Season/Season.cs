@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Draft.Core.Events;
 using Draft.Core.SharedKernel;
 
 namespace Draft.Core.Entities
@@ -26,6 +27,19 @@ namespace Draft.Core.Entities
         {
             Standings = standings;
             StartDate = startDate;
+        }
+
+        public void Complete()
+        {
+            IsCompleted = true;
+            IsActive = false;
+            Events.Add(new SeasonCompletedEvent(this));
+        }
+
+        public void Activate()
+        {
+            IsActive = true;
+            Events.Add(new SeasonStartedEvent(this));
         }
 
 

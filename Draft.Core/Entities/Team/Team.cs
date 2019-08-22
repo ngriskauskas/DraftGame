@@ -30,6 +30,13 @@ namespace Draft.Core.Entities
             _players = players;
         }
 
+
+        public void ResetRecord()
+        {
+            Record.Wins = 0;
+            Record.Losses = 0;
+            Record.Ties = 0;
+        }
         private void UpdateRating()
         {
             OffRating = RatingExtensions.CalcOffRating(Starters);

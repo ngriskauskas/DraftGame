@@ -11,7 +11,8 @@ namespace Draft.Core.Entities
         private readonly List<GameTeam> _gameTeams = new List<GameTeam>();
 
 
-        public DateTime Date { get; }
+
+        public DateTime Date { get; private set; }
         public List<GameTeam> GameTeams { get; private set; }
         public int HomeScore { get; private set; } = 0;
         public int AwayScore { get; private set; } = 0;

@@ -5,12 +5,12 @@ namespace Draft.Core.Entities
 {
     public class Phase : Entity
     {
-        public PhaseType PhaseType { get; }
-        public DateTime Date { get; }
-        public int MaxRosterSize { get; }
-        public bool CanTrade { get; }
-        public bool IsComplete { get; set; } = false;
-        public bool IsActive { get; set; } = false;
+        public PhaseType PhaseType { get; private set; }
+        public DateTime Date { get; private set; }
+        public int MaxRosterSize { get; private set; }
+        public bool CanTrade { get; private set; }
+        public bool IsComplete { get; private set; } = false;
+        public bool IsActive { get; private set; } = false;
 
 
         public Phase(PhaseType type, DateTime date, int maxRosterSize, bool canTrade)
