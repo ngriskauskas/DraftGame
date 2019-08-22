@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "f554f327d7ac7f5c15a40bb1bb542208dfce232e"
+    "signature": "2e3da82fff7fedad6787a7ba318c098abe7e53f0"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,11 +9,20 @@
     ".NETStandard,Version=v2.0/": {
       "Draft.Core/1.0.0": {
         "dependencies": {
+          "Autofac": "4.9.4",
           "NETStandard.Library": "2.0.3",
           "System.ComponentModel.Annotations": "4.5.0"
         },
         "runtime": {
           "Draft.Core.dll": {}
+        }
+      },
+      "Autofac/4.9.4": {
+        "runtime": {
+          "lib/netstandard2.0/Autofac.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
@@ -37,6 +46,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Autofac/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dYiDG4yoV7GDCoOc66d1sqMmg2gwDyomHKgATuMfhFzYxVpWEltToHVHXI3I9vOEvIXE55S4OZPY0ldiZmZtpA==",
+      "path": "autofac/4.9.4",
+      "hashPath": "autofac.4.9.4.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

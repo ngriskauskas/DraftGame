@@ -42,8 +42,12 @@ namespace Draft.Core.Entities
             Events.Add(new SeasonStartedEvent(this));
         }
 
-
-
-
+        public void CompletePhase()
+        {
+            var nextPhase = _phases[_phases.IndexOf(CurPhase) + 1];
+            CurPhase.Complete();
+            nextPhase.Activate();
+            Events.Add(new PhaseStartedEvent(CurPhase));
+        }
     }
 }

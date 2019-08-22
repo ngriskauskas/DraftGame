@@ -20,6 +20,16 @@ namespace Draft.Core.Entities
             MaxRosterSize = maxRosterSize;
             CanTrade = canTrade;
         }
+
+        public void Activate()
+        {
+            IsActive = true;
+        }
+        public void Complete()
+        {
+            IsComplete = true;
+            IsActive = false;
+        }
     }
 
     public enum PhaseType

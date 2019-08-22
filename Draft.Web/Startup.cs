@@ -12,6 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Draft.Core.SharedKernel;
+using Draft.Inf.Services;
+using Draft.Inf.Hub;
+using Draft.Core.Services;
 
 namespace Draft.Web
 {
@@ -34,6 +37,10 @@ namespace Draft.Web
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+            });
 
             return BuildDIProvider(services);
         }
@@ -50,6 +57,8 @@ namespace Draft.Web
 
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infAssembly)
                 .AsImplementedInterfaces();
+
+            builder.RegisterType<PreDraftService>();
 
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
@@ -78,6 +87,10 @@ namespace Draft.Web
                     template: "{controller}/{action=Index}/{id?}");
             });
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<TimerHub>("/hubs/timer");
+            });
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
@@ -87,6 +100,7 @@ namespace Draft.Web
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
 
             provider.GetService<AppDbContext>().InitLeague();
         }
