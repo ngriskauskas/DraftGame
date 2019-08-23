@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Draft.Inf.Hub
 {
-    public interface ITimer
+    public interface ITimerHub
     {
         Task UpdateTime(int timeLeft);
     }
-    public class TimerHub : Hub<ITimer>
+    public class TimerHub : Hub<ITimerHub>
     {
         private static readonly Dictionary<string, bool> clientReady = new Dictionary<string, bool>();
         private readonly LeagueService _testService;

@@ -90,6 +90,7 @@ namespace Draft.Web
             app.UseSignalR(routes =>
             {
                 routes.MapHub<TimerHub>("/hubs/timer");
+                routes.MapHub<PhaseHub>("/hubs/phase");
             });
             app.UseSpa(spa =>
             {

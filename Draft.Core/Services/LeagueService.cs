@@ -27,6 +27,7 @@ namespace Draft.Core.Services
         {
             var season = _repository.Get(new SeasonWithPhaseStandings(s => s.IsActive && !s.IsCompleted));
             season.CompletePhase();
+            _repository.Update(season);
         }
     }
 }

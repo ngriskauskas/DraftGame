@@ -8,11 +8,11 @@ namespace Draft.Inf.Services
 {
     public class TimerService : ITimerService
     {
-        private readonly IHubContext<TimerHub, ITimer> _timerHub;
+        private readonly IHubContext<TimerHub, ITimerHub> _timerHub;
         private readonly LeagueService _leagueService;
         private static Timer _timer;
 
-        public TimerService(IHubContext<TimerHub, ITimer> timerHub, LeagueService leagueService)
+        public TimerService(IHubContext<TimerHub, ITimerHub> timerHub, LeagueService leagueService)
         {
             _timerHub = timerHub;
             _leagueService = leagueService;
