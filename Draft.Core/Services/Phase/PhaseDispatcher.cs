@@ -9,11 +9,11 @@ namespace Draft.Core.Handlers
 {
     public class PhaseDispatcher : IHandle<PhaseStartedEvent>
     {
-        private readonly IComponentContext _container;
+        private readonly IDomainEventDispatcher _dispatcher;
 
-        public PhaseDispatcher(IComponentContext container)
+        public PhaseDispatcher(IDomainEventDispatcher dispatcher)
         {
-            _container = container;
+            _dispatcher = dispatcher;
         }
         public void Handle(PhaseStartedEvent domainEvent)
         {
@@ -21,20 +21,21 @@ namespace Draft.Core.Handlers
         }
         private void Dispatch(Phase phase)
         {
-            Type serviceType;
 
             switch (phase.PhaseType)
             {
                 case PhaseType.PreDraft:
-                    serviceType = typeof(PreDraftService);
+                    _dispatcher.Dispatch(new PreDraftPhaseEvent(phase));
+                    break;
+                case PhaseType.Draft:
+                    _dispatcher.Dispatch(new DraftPhaseEvent(phase));
                     break;
                 default:
-                    serviceType = null;
                     break;
             }
 
-            var phaseService = (IPhaseService)Activator.CreateInstance(serviceType, phase);
-            phaseService.Handle();
         }
+
+
     }
 }

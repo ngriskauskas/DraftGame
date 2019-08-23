@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Draft.Core.Interfaces;
 using Draft.Core.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -12,26 +13,28 @@ namespace Draft.Inf.Hub
     }
     public class TimerHub : Hub<ITimer>
     {
-        private readonly PreDraftService _testService;
         private static readonly Dictionary<string, bool> clientReady = new Dictionary<string, bool>();
+        private readonly LeagueService _testService;
+        private readonly ITimerService _timerService;
 
-        public TimerHub(PreDraftService testService)
+        public TimerHub(LeagueService testService, ITimerService timerService)
         {
             _testService = testService;
+            _timerService = timerService;
         }
         public void ReadyClient()
         {
             clientReady[Context.ConnectionId] = true;
             if (!clientReady.Values.Any(v => v == false))
             {
-                _testService.EndTimer();
+                _timerService.EndTimer();
                 foreach (var key in clientReady.Keys.ToList())
                     clientReady[key] = false;
             }
         }
         public async Task StartTimer()
         {
-            _testService.Handle();
+            _testService.StartLeague();
         }
 
         public override Task OnConnectedAsync()

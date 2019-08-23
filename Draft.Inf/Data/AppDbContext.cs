@@ -45,7 +45,7 @@ namespace Draft.Inf.Data
 
             if (_dispatcher == null) return result;
 
-            var entitiesWithEvents = ChangeTracker.Entries<Aggregate>()
+            var entitiesWithEvents = ChangeTracker.Entries<Entity>()
                 .Select(e => e.Entity)
                 .Where(a => a.Events.Any())
                 .ToArray();

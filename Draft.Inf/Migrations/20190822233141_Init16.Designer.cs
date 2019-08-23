@@ -4,14 +4,16 @@ using Draft.Inf.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Draft.Inf.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190822233141_Init16")]
+    partial class Init16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +45,6 @@ namespace Draft.Inf.Migrations
 
                     b.Property<int?>("StandingsId1");
 
-                    b.Property<int?>("StandingsId2");
-
                     b.Property<int?>("TeamId");
 
                     b.HasKey("Id");
@@ -54,8 +54,6 @@ namespace Draft.Inf.Migrations
                     b.HasIndex("StandingsId");
 
                     b.HasIndex("StandingsId1");
-
-                    b.HasIndex("StandingsId2");
 
                     b.HasIndex("TeamId");
 
@@ -287,12 +285,8 @@ namespace Draft.Inf.Migrations
                         .HasForeignKey("StandingsId");
 
                     b.HasOne("Draft.Core.Entities.Standings")
-                        .WithMany("Teams")
-                        .HasForeignKey("StandingsId1");
-
-                    b.HasOne("Draft.Core.Entities.Standings")
                         .WithMany("WestStandings")
-                        .HasForeignKey("StandingsId2");
+                        .HasForeignKey("StandingsId1");
 
                     b.HasOne("Draft.Core.Entities.Team", "Team")
                         .WithMany()

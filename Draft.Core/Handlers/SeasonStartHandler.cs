@@ -3,6 +3,7 @@ using System.Linq;
 using Draft.Core.Entities;
 using Draft.Core.Events;
 using Draft.Core.Interfaces;
+using Draft.Core.Specifications;
 
 namespace Draft.Core.Handlers
 {
@@ -47,7 +48,7 @@ namespace Draft.Core.Handlers
         }
         private void ResetRecords()
         {
-            var teams = _repository.List<Team>(); //may need include for records
+            var teams = _repository.List(new TeamWithRecord());
             teams.ForEach(t => t.ResetRecord());
             _repository.UpdateRange(teams);
         }

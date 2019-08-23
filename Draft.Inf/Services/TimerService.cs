@@ -1,5 +1,6 @@
 using System.Threading;
 using Draft.Core.Interfaces;
+using Draft.Core.Services;
 using Draft.Inf.Hub;
 using Microsoft.AspNetCore.SignalR;
 
@@ -8,11 +9,13 @@ namespace Draft.Inf.Services
     public class TimerService : ITimerService
     {
         private readonly IHubContext<TimerHub, ITimer> _timerHub;
+        private readonly LeagueService _leagueService;
         private static Timer _timer;
 
-        public TimerService(IHubContext<TimerHub, ITimer> timerHub)
+        public TimerService(IHubContext<TimerHub, ITimer> timerHub, LeagueService leagueService)
         {
             _timerHub = timerHub;
+            _leagueService = leagueService;
         }
         public void StartTimer(int time)
         {
@@ -24,6 +27,7 @@ namespace Draft.Inf.Services
         {
             _timer.Dispose();
             UpdateHubTime(0);
+            _leagueService.EndPhase();
         }
 
         private void UpdateTimer(object state)

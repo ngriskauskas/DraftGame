@@ -8,13 +8,13 @@ namespace Draft.Inf.Utils
 {
     public static class FileReader
     {
-        public static ICollection<Entity> GetCollection<Entity>(string path)
+        public static List<Entity> GetCollection<Entity>(string path)
         {
-            ICollection<Entity> entities;
+            List<Entity> entities;
             using (StreamReader reader = new StreamReader(path))
             {
                 string json = reader.ReadToEnd();
-                entities = JsonConvert.DeserializeObject<ICollection<Entity>>(json);
+                entities = JsonConvert.DeserializeObject<List<Entity>>(json);
             }
             return entities;
         }

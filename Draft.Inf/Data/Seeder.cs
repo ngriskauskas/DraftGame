@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Draft.Core.Entities;
 using Draft.Inf.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace Draft.Inf.Data
 {
     public static class Seeder
     {
         private readonly static string teamData = "..\\Draft.Inf\\Data\\SeedData\\teams.json";
+        private readonly static string phaseData = "..\\Draft.Inf\\Data\\SeedData\\phases.json";
         public static void InitLeague(this AppDbContext db)
         {
             using (db)
@@ -22,12 +24,14 @@ namespace Draft.Inf.Data
 
         private static void DeleteOldRecords(AppDbContext db)
         {
-            db.RemoveAll(db.Players);
-            db.RemoveAll(db.ArcTeams);
-            db.RemoveAll(db.Teams);
-            db.RemoveAll(db.Games);
-            db.RemoveAll(db.Seasons);
-            db.RemoveAll(db.Standings);
+            db.RemoveAll<Player>();
+            db.RemoveAll<ArcTeam>();
+            db.RemoveAll<Team>();
+            db.RemoveAll<Record>();
+            db.RemoveAll<Game>();
+            db.RemoveAll<Phase>();
+            db.RemoveAll<Season>();
+            db.RemoveAll<Standings>();
         }
         private static void SeedTeams(AppDbContext db)
         {
@@ -45,16 +49,21 @@ namespace Draft.Inf.Data
             );
             db.ArcTeams.AddRange(arcTeams);
 
+
             var season = new Season
             (
                 new Standings(arcTeams),
                 new DateTime(1949, 1, 1),
+                FileReader.GetCollection<Phase>(phaseData),
                 false,
                 true
             );
             db.Seasons.Add(season);
 
+
             db.SaveChanges();
+
+
         }
 
         private static void Add5Seasons(AppDbContext db)
@@ -64,6 +73,7 @@ namespace Draft.Inf.Data
                     new Season(
                         new Standings(new List<ArcTeam>()),
                         new DateTime(1950 + i, 1, 1),
+                        FileReader.GetCollection<Phase>(phaseData),
                         false,
                         false));
 

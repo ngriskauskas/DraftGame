@@ -1,4 +1,5 @@
 using System;
+using Draft.Core.Events;
 using Draft.Core.SharedKernel;
 
 namespace Draft.Core.Entities
@@ -12,18 +13,21 @@ namespace Draft.Core.Entities
         public bool IsComplete { get; private set; } = false;
         public bool IsActive { get; private set; } = false;
 
-
-        public Phase(PhaseType type, DateTime date, int maxRosterSize, bool canTrade)
+        private Phase(int maxRosterSize, bool canTrade)
         {
-            PhaseType = type;
-            Date = date;
             MaxRosterSize = maxRosterSize;
             CanTrade = canTrade;
+        }
+        public Phase(PhaseType phaseType, DateTime date, int maxRosterSize, bool canTrade) : this(maxRosterSize, canTrade)
+        {
+            PhaseType = phaseType;
+            Date = date;
         }
 
         public void Activate()
         {
             IsActive = true;
+            Events.Add(new PhaseStartedEvent(this));
         }
         public void Complete()
         {

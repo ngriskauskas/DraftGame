@@ -1,23 +1,21 @@
 using System;
+using Draft.Core.Events;
 using Draft.Core.Interfaces;
 
 namespace Draft.Core.Services
 {
-    public class PreDraftService : IPhaseService
+    public class PreDraftService : IHandle<PreDraftPhaseEvent>
     {
-        private readonly ITimerService _timer;
+        private readonly ITimerService _timerService;
 
-        public PreDraftService(ITimerService timer)
+        public PreDraftService(ITimerService timerService)
         {
-            _timer = timer;
+            _timerService = timerService;
         }
-        public void Handle()
+
+        public void Handle(PreDraftPhaseEvent domainEvent)
         {
-            _timer.StartTimer(100);
-        }
-        public void EndTimer()
-        {
-            _timer.EndTimer();
+            _timerService.StartTimer(100);
         }
     }
 }

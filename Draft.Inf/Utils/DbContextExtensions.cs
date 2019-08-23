@@ -7,10 +7,10 @@ namespace Draft.Inf.Utils
 {
     public static class DbContextExtensions
     {
-        public static void RemoveAll<T>(this AppDbContext db, DbSet<T> set) where T : Entity
+        public static void RemoveAll<T>(this AppDbContext db) where T : Entity
         {
-            var records = set.ToList();
-            set.RemoveRange(records);
+            var records = db.Set<T>().ToList();
+            db.Set<T>().RemoveRange(records);
             db.SaveChanges();
         }
 

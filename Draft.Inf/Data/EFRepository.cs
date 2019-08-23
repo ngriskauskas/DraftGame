@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Draft.Core.Entities;
 using Draft.Core.Interfaces;
 using Draft.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ namespace Draft.Inf.Data
         }
         public T Get<T>(ISpecification<T> spec) where T : Entity
         {
-            return _db.Set<T>().SingleOrDefault(spec.Criteria);
+            return ApplySpecification(spec).SingleOrDefault();
         }
         public IEnumerable<T> AddRange<T>(IEnumerable<T> entities) where T : Entity
         {
@@ -41,10 +42,7 @@ namespace Draft.Inf.Data
         }
         public List<T> List<T>(ISpecification<T> spec = null) where T : Entity
         {
-            var query = _db.Set<T>().AsQueryable();
-            if (spec != null)
-                query = query.Where(spec.Criteria);
-            return query.ToList();
+            return ApplySpecification(spec).ToList();
         }
         public void UpdateRange<T>(IEnumerable<T> entities) where T : Entity
         {
@@ -56,6 +54,11 @@ namespace Draft.Inf.Data
         {
             _db.Entry(entity).State = EntityState.Modified;
             _db.SaveChanges();
+        }
+
+        private IQueryable<T> ApplySpecification<T>(ISpecification<T> spec) where T : Entity
+        {
+            return SpecificationEvaluator<T>.GetQuery(_db.Set<T>().AsQueryable(), spec);
         }
     }
 }

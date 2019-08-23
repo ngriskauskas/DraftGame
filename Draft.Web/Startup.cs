@@ -58,7 +58,7 @@ namespace Draft.Web
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infAssembly)
                 .AsImplementedInterfaces();
 
-            builder.RegisterType<PreDraftService>();
+            builder.RegisterType<LeagueService>();
 
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
