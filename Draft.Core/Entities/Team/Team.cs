@@ -8,11 +8,9 @@ namespace Draft.Core.Entities
 {
     public class Team : Aggregate
     {
-        private readonly List<Player> _players = new List<Player>();
-        private List<Player> _starters = new List<Player>();
 
-        public IReadOnlyCollection<Player> Players => new ReadOnlyCollection<Player>(_players);
-        public IReadOnlyCollection<Player> Starters => new ReadOnlyCollection<Player>(_starters);
+        public ICollection<Player> Players { get; set; }
+        public ICollection<Player> Starters { get; private set; }
         public string Name { get; private set; }
         public Division Division { get; private set; }
         public Record Record { get; private set; }
@@ -27,9 +25,8 @@ namespace Draft.Core.Entities
         public Team(string name, Division division, Record record, List<Player> players) : this(name, division)
         {
             Record = record;
-            _players = players;
+            Players = players;
         }
-
 
         public void ResetRecord()
         {
@@ -49,13 +46,13 @@ namespace Draft.Core.Entities
             foreach (Position pos in Enum.GetValues(typeof(Position)))
                 result.AddRange
                 (
-                    _players
+                    Players
                         .Where(p => p.Position.Equals(pos))
                         .OrderByDescending(p => p.Rating)
                         .Take(startPosPlayers[pos])
                 );
 
-            _starters = result;
+            Starters = result;
 
             UpdateRating();
         }

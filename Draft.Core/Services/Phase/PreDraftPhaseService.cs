@@ -1,6 +1,8 @@
 using System;
+using Draft.Core.Entities;
 using Draft.Core.Events;
 using Draft.Core.Interfaces;
+using Draft.Core.Specifications;
 
 namespace Draft.Core.Services
 {
@@ -16,11 +18,15 @@ namespace Draft.Core.Services
                                 IHandle<RetirementPhaseEvent>
 
     {
-        private readonly ITimerService _timerService;
 
-        public PreDraftPhaseService(ITimerService timerService)
+
+        private readonly ITimerService _timerService;
+        private readonly IRepository _repository;
+
+        public PreDraftPhaseService(ITimerService timerService, IRepository repository)
         {
             _timerService = timerService;
+            _repository = repository;
         }
 
         public void Handle(PreDraftPhaseEvent domainEvent)

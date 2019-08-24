@@ -25,7 +25,7 @@ namespace Draft.Core.Handlers
 
         private void InitGames(Season newSeason)
         {
-            var oldSeason = _repository.GetById<Season>(newSeason.Id - 1);
+            var oldSeason = _repository.Get<Season>(new SeasonWithStandingsTeams(newSeason.Id - 1));
             var teams = oldSeason.Standings.EastStandings
                 .Union(oldSeason.Standings.WestStandings)
                 .ToArray();
@@ -40,8 +40,8 @@ namespace Draft.Core.Handlers
                         new Game
                         (
                             gameDates[i],
-                            teams[gameSchedule[i][j] - 1].Team,
-                            teams[gameSchedule[i][j + 1] - 1].Team
+                            new GameTeam(teams[gameSchedule[i][j] - 1].Team, TeamSide.Home),
+                            new GameTeam(teams[gameSchedule[i][j + 1] - 1].Team, TeamSide.Away)
                         )
                     );
             _repository.AddRange(games);
@@ -52,5 +52,7 @@ namespace Draft.Core.Handlers
             teams.ForEach(t => t.ResetRecord());
             _repository.UpdateRange(teams);
         }
+
+
     }
 }

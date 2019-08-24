@@ -38,6 +38,21 @@ namespace Draft.Core.Entities
             Teams = teams;
         }
 
+        public void Update(params ArcTeam[] teams)
+        {
+            foreach (var team in teams)
+            {
+                var arcTeam = Teams.SingleOrDefault(ac => ac.Team == team.Team);
+                if (arcTeam == null)
+                    Teams.Add(team);
+                else
+                {
+                    Teams.Remove(arcTeam);
+                    Teams.Add(team);
+                }
+            }
+        }
+
 
 
     }

@@ -6,10 +6,8 @@ namespace Draft.Core.Entities
 {
     public class ArcTeam : Aggregate
     {
-        private readonly List<Player> _players = new List<Player>();
-        private List<Player> _starters = new List<Player>();
-        public IEnumerable<Player> Players => new ReadOnlyCollection<Player>(_players);
-        public IEnumerable<Player> Starters => new ReadOnlyCollection<Player>(_starters);
+        public ICollection<Player> Players { get; private set; }
+        public ICollection<Player> Starters { get; private set; }
         public string Name { get; private set; }
         public Division Division { get; private set; }
         public GameTeam GameTeam { get; private set; }
@@ -30,8 +28,8 @@ namespace Draft.Core.Entities
             Division = team.Division;
             OffRating = team.OffRating;
             DefRating = team.DefRating;
-            _players = new List<Player>(team.Players);
-            _starters = new List<Player>(team.Starters);
+            Players = new List<Player>(team.Players);
+            Starters = new List<Player>(team.Starters);
             Record = new Record(team.Record.Wins, team.Record.Losses, team.Record.Ties);
         }
     }

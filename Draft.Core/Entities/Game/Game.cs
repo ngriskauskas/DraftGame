@@ -8,19 +8,16 @@ namespace Draft.Core.Entities
 {
     public class Game : Aggregate
     {
-        private readonly List<GameTeam> _gameTeams = new List<GameTeam>();
-
-
-
         public DateTime Date { get; private set; }
-        public List<GameTeam> GameTeams { get; private set; }
+        public ICollection<GameTeam> GameTeams { get; private set; } = new List<GameTeam>();
         public int HomeScore { get; private set; } = 0;
         public int AwayScore { get; private set; } = 0;
         public bool IsCompleted { get; private set; } = false;
 
 
-        public Team HomeTeam => _gameTeams.Single(t => t.TeamSide == TeamSide.Home).Team;
-        public Team AwayTeam => _gameTeams.Single(t => t.TeamSide == TeamSide.Away).Team;
+        public Team HomeTeam => GameTeams.Single(t => t.TeamSide == TeamSide.Home).Team;
+        public Team AwayTeam => GameTeams.Single(t => t.TeamSide == TeamSide.Away).Team;
+        public bool IsTie => IsCompleted ? HomeScore == AwayScore : false;
         public Team Winner
         {
             get
@@ -32,11 +29,11 @@ namespace Draft.Core.Entities
             }
         }
         private Game() { }
-        public Game(DateTime date, Team homeTeam, Team awayTeam)
+        public Game(DateTime date, GameTeam homeTeam, GameTeam awayTeam)
         {
             Date = date;
-            _gameTeams.Add(new GameTeam(homeTeam, TeamSide.Home));
-            _gameTeams.Add(new GameTeam(awayTeam, TeamSide.Away));
+            GameTeams.Add(homeTeam);
+            GameTeams.Add(awayTeam);
         }
 
         public void Complete(int homeScore, int awayScore)
