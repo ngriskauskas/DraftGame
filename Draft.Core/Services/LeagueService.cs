@@ -1,10 +1,11 @@
 using Draft.Core.Entities;
+using Draft.Core.Events;
 using Draft.Core.Interfaces;
 using Draft.Core.Specifications;
 
 namespace Draft.Core.Services
 {
-    public class LeagueService
+    public class LeagueService : IHandle<PhaseTimerEndedEvent>
     {
         private readonly IRepository _repository;
 
@@ -23,11 +24,16 @@ namespace Draft.Core.Services
             _repository.Update(newSeason);
         }
 
-        public void EndPhase()
+        private void EndPhase()
         {
             var season = _repository.Get(new SeasonWithPhaseStandings(s => s.IsActive && !s.IsCompleted));
             season.CompletePhase();
             _repository.Update(season);
+        }
+
+        public void Handle(PhaseTimerEndedEvent domainEvent)
+        {
+            EndPhase();
         }
     }
 }

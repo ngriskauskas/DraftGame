@@ -25,7 +25,7 @@ namespace Draft.Inf.Data
         {
             return _db.Set<T>().SingleOrDefault(e => e.Id == id);
         }
-        public T Get<T>(ISpecification<T> spec) where T : Entity
+        public T Get<T>(ISpecification<T> spec = null) where T : Entity
         {
             return ApplySpecification(spec).SingleOrDefault();
         }

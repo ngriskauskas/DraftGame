@@ -6,7 +6,7 @@ namespace Draft.Core.Interfaces
     public interface IRepository
     {
         T GetById<T>(int id) where T : Entity;
-        T Get<T>(ISpecification<T> spec) where T : Entity;
+        T Get<T>(ISpecification<T> spec = null) where T : Entity;
         List<T> List<T>(ISpecification<T> spec = null) where T : Entity;
         T Add<T>(T entity) where T : Entity;
         IEnumerable<T> AddRange<T>(IEnumerable<T> entities) where T : Entity;

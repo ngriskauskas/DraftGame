@@ -57,8 +57,11 @@ namespace Draft.Web
 
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infAssembly)
                 .AsImplementedInterfaces();
-
             builder.RegisterType<LeagueService>();
+            builder.RegisterType<TimerService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
 
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);

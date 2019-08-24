@@ -1,6 +1,9 @@
 using System.Threading;
+using Autofac;
+using Draft.Core.Events;
 using Draft.Core.Interfaces;
 using Draft.Core.Services;
+using Draft.Core.SharedKernel;
 using Draft.Inf.Hub;
 using Microsoft.AspNetCore.SignalR;
 
@@ -9,16 +12,20 @@ namespace Draft.Inf.Services
     public class TimerService : ITimerService
     {
         private readonly IHubContext<TimerHub, ITimerHub> _timerHub;
-        private readonly LeagueService _leagueService;
-        private static Timer _timer;
+        private readonly IComponentContext _container;
+        private Timer _timer;
+        private DomainEvent _endEvent;
 
-        public TimerService(IHubContext<TimerHub, ITimerHub> timerHub, LeagueService leagueService)
+        //Hub context may be left open because singleton
+        public TimerService(IHubContext<TimerHub, ITimerHub> timerHub, IComponentContext container)
         {
             _timerHub = timerHub;
-            _leagueService = leagueService;
+            _container = container;
+
         }
-        public void StartTimer(int time)
+        public void StartTimer(int time, DomainEvent endEvent)
         {
+            _endEvent = endEvent;
             var state = new TimerState { TimeLeft = time };
             _timer = new Timer(new TimerCallback(UpdateTimer), state, 0, 1000);
         }
@@ -27,7 +34,8 @@ namespace Draft.Inf.Services
         {
             _timer.Dispose();
             UpdateHubTime(0);
-            _leagueService.EndPhase();
+            var dispatcher = _container.Resolve<IDomainEventDispatcher>();
+            dispatcher.Dispatch(_endEvent);
         }
 
         private void UpdateTimer(object state)
@@ -37,7 +45,7 @@ namespace Draft.Inf.Services
             UpdateHubTime(timerState.TimeLeft);
 
             if (timerState.TimeLeft <= 0)
-                _timer.Dispose();
+                EndTimer();
         }
         private void UpdateHubTime(int timeLeft)
         {

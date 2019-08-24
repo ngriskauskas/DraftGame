@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Draft.Inf.Services
 {
-    public class PhaseHubService : IHandle<PhaseStartedEvent>
+    public class PhaseHubService : IHandle<PhaseStartedEvent>, IHandle<DateChangedEvent>
     {
         private readonly IHubContext<PhaseHub, IPhaseHub> _phaseHub;
 
@@ -18,6 +18,11 @@ namespace Draft.Inf.Services
         public void Handle(PhaseStartedEvent domainEvent)
         {
             _phaseHub.Clients.All.UpdatePhase(Enum.GetName(typeof(PhaseType), domainEvent.Phase.PhaseType));
+        }
+
+        public void Handle(DateChangedEvent domainEvent)
+        {
+            _phaseHub.Clients.All.UpdateDate(domainEvent.Date);
         }
     }
 }

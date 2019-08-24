@@ -47,5 +47,10 @@ namespace Draft.Core.Entities
             Events.Add(new GameCompletedEvent(this));
         }
 
+        public void Play()
+        {
+            Events.Add(new GameStartedEvent(this));
+        }
+
     }
 }

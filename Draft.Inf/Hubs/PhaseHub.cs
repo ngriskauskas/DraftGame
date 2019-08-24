@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -11,5 +12,6 @@ namespace Draft.Inf.Hub
     public interface IPhaseHub
     {
         Task UpdatePhase(string phaseName);
+        Task UpdateDate(DateTime date);
     }
 }
