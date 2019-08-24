@@ -94,6 +94,7 @@ namespace Draft.Web
             {
                 routes.MapHub<TimerHub>("/hubs/timer");
                 routes.MapHub<PhaseHub>("/hubs/phase");
+                routes.MapHub<StandingsHub>("/hubs/standings");
             });
             app.UseSpa(spa =>
             {

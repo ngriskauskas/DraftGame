@@ -9,10 +9,13 @@ namespace Draft.Core.Handlers
     {
         private readonly IRepository _repository;
         private readonly ITimerService _timer;
-        public GameWeekHandler(IRepository repository, ITimerService timer)
+        private readonly IDomainEventDispatcher _dispatcher;
+
+        public GameWeekHandler(IRepository repository, ITimerService timer, IDomainEventDispatcher dispatcher)
         {
             _repository = repository;
             _timer = timer;
+            _dispatcher = dispatcher;
         }
         public void Handle(GameWeekStartedEvent domainEvent)
         {
@@ -26,6 +29,9 @@ namespace Draft.Core.Handlers
 
             _repository.UpdateRange<Game>(games);
 
+            var standings = _repository.Get<Season>(new CurrentSeasonWithStandingsTeams()).Standings;
+
+            _dispatcher.Dispatch(new StandingsChangedEvent(standings));
 
 
         }

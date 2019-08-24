@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Draft.Core.Events;
 using Draft.Core.SharedKernel;
 
 namespace Draft.Core.Entities
