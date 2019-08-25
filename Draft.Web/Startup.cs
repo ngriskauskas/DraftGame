@@ -15,6 +15,7 @@ using Draft.Core.SharedKernel;
 using Draft.Inf.Services;
 using Draft.Inf.Hub;
 using Draft.Core.Services;
+using Draft.Inf.Identity;
 
 namespace Draft.Web
 {
@@ -32,6 +33,9 @@ namespace Draft.Web
             services.AddDbContext<AppDbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentityCore<AppUser>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSpaStaticFiles(configuration =>
             {
@@ -41,6 +45,7 @@ namespace Draft.Web
             {
                 o.EnableDetailedErrors = true;
             });
+
 
             return BuildDIProvider(services);
         }

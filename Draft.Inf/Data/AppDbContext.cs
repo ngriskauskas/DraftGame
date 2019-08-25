@@ -3,12 +3,14 @@ using System.Reflection;
 using Draft.Core.Entities;
 using Draft.Core.Interfaces;
 using Draft.Core.SharedKernel;
+using Draft.Inf.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Draft.Inf.Data
 {
 
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public DbSet<Player> Players { get; set; }
         public DbSet<Game> Games { get; set; }

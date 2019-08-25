@@ -14,6 +14,7 @@ namespace Draft.Core.Entities
         public DateTime CurDate { get; private set; }
         public Standings Standings { get; private set; }
         public Draft Draft { get; private set; }
+        public Waiver Waiver { get; private set; }
         public bool IsCompleted { get; private set; }
         public bool IsActive { get; private set; }
 
@@ -25,12 +26,17 @@ namespace Draft.Core.Entities
             IsCompleted = isCompleted;
             IsActive = isActive;
         }
-        public Season(Standings standings, DateTime startDate, List<Phase> phases, bool isCompleted, bool isActive) : this(isCompleted, isActive)
+        public Season(Standings standings,
+                        DateTime startDate,
+                        List<Phase> phases,
+                        bool isCompleted,
+                        bool isActive) : this(isCompleted, isActive)
         {
             Standings = standings;
             StartDate = startDate;
             CurDate = startDate;
             Phases = phases;
+            Waiver = new Waiver();
         }
 
         public void Complete()
