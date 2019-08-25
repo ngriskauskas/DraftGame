@@ -1,22 +1,21 @@
 using System.Linq;
 using Draft.Core.Events;
 using Draft.Core.Interfaces;
-using Draft.Inf.Hub;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Draft.Inf.Services
+namespace Draft.Web.Api.Handlers
 {
-    public class StandingsHubService : IHandle<StandingsChangedEvent>
+    public class StandingsHubUpdateHandler : IHandle<StandingsChangedEvent>
     {
         private readonly IHubContext<StandingsHub, IStandingsHub> _standingsHub;
 
-        public StandingsHubService(IHubContext<StandingsHub, IStandingsHub> standingsHub)
+        public StandingsHubUpdateHandler(IHubContext<StandingsHub, IStandingsHub> standingsHub)
         {
             _standingsHub = standingsHub;
         }
         public void Handle(StandingsChangedEvent domainEvent)
         {
-            var names = domainEvent.Standings.Teams
+            var teams = domainEvent.Standings.Teams
             .Select(t => new TeamViewModel
             {
                 Name = t.Name,
@@ -24,15 +23,7 @@ namespace Draft.Inf.Services
                 Losses = t.Record.Losses,
                 Ties = t.Record.Ties
             }).ToArray();
-            _standingsHub.Clients.All.UpdateStandings(names);
+            _standingsHub.Clients.All.UpdateStandings(teams);
         }
-    }
-
-    public class TeamViewModel
-    {
-        public string Name { get; set; }
-        public int Wins { get; set; }
-        public int Losses { get; set; }
-        public int Ties { get; set; }
     }
 }

@@ -2,16 +2,15 @@ using System;
 using Draft.Core.Entities;
 using Draft.Core.Events;
 using Draft.Core.Interfaces;
-using Draft.Inf.Hub;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Draft.Inf.Services
+namespace Draft.Web.Api.Handlers
 {
-    public class PhaseHubService : IHandle<PhaseStartedEvent>, IHandle<DateChangedEvent>
+    public class PhaseHubUpdateHandler : IHandle<PhaseStartedEvent>, IHandle<DateChangedEvent>
     {
         private readonly IHubContext<PhaseHub, IPhaseHub> _phaseHub;
 
-        public PhaseHubService(IHubContext<PhaseHub, IPhaseHub> phaseHub)
+        public PhaseHubUpdateHandler(IHubContext<PhaseHub, IPhaseHub> phaseHub)
         {
             _phaseHub = phaseHub;
         }

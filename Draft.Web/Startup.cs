@@ -13,9 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Draft.Core.SharedKernel;
 using Draft.Inf.Services;
-using Draft.Inf.Hub;
 using Draft.Core.Services;
 using Draft.Inf.Identity;
+using Draft.Web.Api;
 
 namespace Draft.Web
 {

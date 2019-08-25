@@ -4,22 +4,19 @@ using Draft.Core.Events;
 using Draft.Core.Interfaces;
 using Draft.Core.Services;
 using Draft.Core.SharedKernel;
-using Draft.Inf.Hub;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Draft.Inf.Services
 {
     public class TimerService : ITimerService
     {
-        private readonly IHubContext<TimerHub, ITimerHub> _timerHub;
         private readonly IComponentContext _container;
         private Timer _timer;
         private DomainEvent _endEvent;
 
         //Hub context may be left open because singleton
-        public TimerService(IHubContext<TimerHub, ITimerHub> timerHub, IComponentContext container)
+        public TimerService(IComponentContext container)
         {
-            _timerHub = timerHub;
             _container = container;
 
         }
@@ -33,8 +30,8 @@ namespace Draft.Inf.Services
         public void EndTimer()
         {
             _timer.Dispose();
-            UpdateHubTime(0);
-            var dispatcher = _container.Resolve<IDomainEventDispatcher>();
+            var dispatcher = GetDispatcher();
+            dispatcher.Dispatch(new TimerChangedEvent(0));
             dispatcher.Dispatch(_endEvent);
         }
 
@@ -42,14 +39,15 @@ namespace Draft.Inf.Services
         {
             var timerState = state as TimerState;
             timerState.TimeLeft--;
-            UpdateHubTime(timerState.TimeLeft);
+            GetDispatcher().Dispatch(new TimerChangedEvent(timerState.TimeLeft));
 
             if (timerState.TimeLeft <= 0)
                 EndTimer();
         }
-        private void UpdateHubTime(int timeLeft)
+
+        private IDomainEventDispatcher GetDispatcher()
         {
-            _timerHub.Clients.All.UpdateTime(timeLeft);
+            return _container.Resolve<IDomainEventDispatcher>();
         }
     }
     class TimerState

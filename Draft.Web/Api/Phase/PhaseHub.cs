@@ -1,8 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using Draft.Core.Entities;
+using Draft.Core.Events;
+using Draft.Core.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Draft.Inf.Hub
+namespace Draft.Web.Api
 {
     public class PhaseHub : Hub<IPhaseHub>
     {
