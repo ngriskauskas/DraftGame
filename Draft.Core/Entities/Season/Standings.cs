@@ -39,7 +39,7 @@ namespace Draft.Core.Entities
             Teams = teams;
         }
 
-        public void Update(params ArcTeam[] teams)
+        public void Update(IEnumerable<ArcTeam> teams)
         {
             foreach (var team in teams)
             {

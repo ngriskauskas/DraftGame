@@ -40,8 +40,8 @@ namespace Draft.Core.Handlers
                         new Game
                         (
                             gameDates[i],
-                            new GameTeam(teams[gameSchedule[i][j] - 1].Team, TeamSide.Home),
-                            new GameTeam(teams[gameSchedule[i][j + 1] - 1].Team, TeamSide.Away)
+                            teams[gameSchedule[i][j] - 1].Team,
+                            teams[gameSchedule[i][j + 1] - 1].Team
                         )
                     );
             _repository.AddRange(games);

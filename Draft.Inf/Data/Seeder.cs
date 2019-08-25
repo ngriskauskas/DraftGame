@@ -25,6 +25,14 @@ namespace Draft.Inf.Data
         private static void DeleteOldRecords(AppDbContext db)
         {
             db.RemoveAll<Player>();
+            var standings = db.Standings.ToList();
+            foreach (var standing in standings)
+            {
+                standing.Champion = null;
+                standing.EastChamp = null;
+                standing.WestChamp = null;
+            }
+            db.SaveChanges();
             db.RemoveAll<ArcTeam>();
             db.RemoveAll<Team>();
             db.RemoveAll<Record>();

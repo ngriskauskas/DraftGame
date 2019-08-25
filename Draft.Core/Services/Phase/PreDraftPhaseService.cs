@@ -12,8 +12,6 @@ namespace Draft.Core.Services
                                 IHandle<FirstCutPhaseEvent>,
                                 IHandle<SecondCutPhaseEvent>,
                                 IHandle<FinalCutPhaseEvent>,
-                                IHandle<DivChampPhaseEvent>,
-                                IHandle<ChampPhaseEvent>,
                                 IHandle<EndSeasonPhaseEvent>,
                                 IHandle<RetirementPhaseEvent>
 
@@ -55,16 +53,6 @@ namespace Draft.Core.Services
         }
 
         public void Handle(FinalCutPhaseEvent domainEvent)
-        {
-            _timerService.StartTimer(100, new PhaseTimerEndedEvent());
-        }
-
-        public void Handle(DivChampPhaseEvent domainEvent)
-        {
-            _timerService.StartTimer(100, new PhaseTimerEndedEvent());
-        }
-
-        public void Handle(ChampPhaseEvent domainEvent)
         {
             _timerService.StartTimer(100, new PhaseTimerEndedEvent());
         }

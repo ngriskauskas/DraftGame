@@ -10,7 +10,7 @@ namespace Draft.Inf.Utils
         public static void RemoveAll<T>(this AppDbContext db) where T : Entity
         {
             var records = db.Set<T>().ToList();
-            db.Set<T>().RemoveRange(records);
+            db.RemoveRange(records);
             db.SaveChanges();
         }
 

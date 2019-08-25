@@ -13,23 +13,18 @@ namespace Draft.Core.Services
             OffAdv,
             DefAdv
         }
-        private readonly IRepository _repository;
         private readonly IResourceProvider _resources;
         private Game _game;
 
-        public GameService(IRepository repository, IResourceProvider resources)
+        public GameService(IResourceProvider resources)
         {
-            _repository = repository;
             _resources = resources;
         }
         public void Handle(GameStartedEvent domainEvent)
         {
-            _game = _repository.Get<Game>(new FullGame(domainEvent.Game.Id));
+            _game = domainEvent.Game;
             CalcScores();
-            UpdateRecords();
-            UpdateStandings();
         }
-
         private void CalcScores()
         {
             var homeAdv = (HomeAdv)Enum.GetValues(typeof(HomeAdv)).GetValue(new Random().Next(1));
@@ -50,39 +45,6 @@ namespace Draft.Core.Services
             int awayScore = _resources.GetGameScores()[60 - awayRatDif][awayRoll - 2];
 
             _game.Complete(homeScore, awayScore);
-        }
-
-        private void UpdateRecords()
-        {
-            if (_game.IsTie)
-            {
-                _game.HomeTeam.Record.Ties++;
-                _game.AwayTeam.Record.Ties++;
-            }
-            else if (_game.Winner == _game.HomeTeam)
-            {
-                _game.HomeTeam.Record.Wins++;
-                _game.AwayTeam.Record.Losses++;
-            }
-            else if (_game.Winner == _game.AwayTeam)
-            {
-                _game.HomeTeam.Record.Losses++;
-                _game.AwayTeam.Record.Wins++;
-            }
-            _repository.Update(_game.HomeTeam);
-            _repository.Update(_game.AwayTeam);
-        }
-
-        private void UpdateStandings()
-        {
-            var standings = _repository.Get<Season>(new CurrentSeasonWithStandingsTeams()).Standings;
-            foreach (var gameTeam in _game.GameTeams)
-            {
-                var arcTeam = new ArcTeam(gameTeam);
-                standings.Update(arcTeam);
-                _repository.Add(arcTeam);
-            }
-            _repository.Update(standings);
         }
 
         private int Roll2()

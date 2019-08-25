@@ -28,12 +28,22 @@ namespace Draft.Core.Entities
                 else return AwayTeam;
             }
         }
+        public Team Loser
+        {
+            get
+            {
+                if (!IsCompleted) return null;
+                if (HomeScore == AwayScore) return null;
+                if (HomeScore > AwayScore) return AwayTeam;
+                else return HomeTeam;
+            }
+        }
         private Game() { }
-        public Game(DateTime date, GameTeam homeTeam, GameTeam awayTeam)
+        public Game(DateTime date, Team homeTeam, Team awayTeam)
         {
             Date = date;
-            GameTeams.Add(homeTeam);
-            GameTeams.Add(awayTeam);
+            GameTeams.Add(new GameTeam(homeTeam, TeamSide.Home));
+            GameTeams.Add(new GameTeam(awayTeam, TeamSide.Away));
         }
 
         public void Complete(int homeScore, int awayScore)
