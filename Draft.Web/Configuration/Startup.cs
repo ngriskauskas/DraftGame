@@ -16,6 +16,7 @@ using Draft.Inf.Services;
 using Draft.Core.Services;
 using Draft.Inf.Identity;
 using Draft.Web.Api;
+using AutoMapper;
 
 namespace Draft.Web
 {
@@ -47,6 +48,7 @@ namespace Draft.Web
             });
 
 
+
             return BuildDIProvider(services);
         }
 
@@ -62,6 +64,17 @@ namespace Draft.Web
 
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infAssembly)
                 .AsImplementedInterfaces();
+
+            var config = new MapperConfiguration(c =>
+            {
+                c.AddProfile<MappingProfile>();
+            });
+
+            builder.RegisterInstance(config.CreateMapper())
+                .As<IMapper>()
+                .SingleInstance();
+
+
             builder.RegisterType<LeagueService>();
             builder.RegisterType<TimerService>()
                 .AsImplementedInterfaces()
@@ -88,18 +101,17 @@ namespace Draft.Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<TimerHub>("/hubs/timer");
+                routes.MapHub<SeasonHub>("/hubs/season");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<TimerHub>("/hubs/timer");
-                routes.MapHub<PhaseHub>("/hubs/phase");
-                routes.MapHub<StandingsHub>("/hubs/standings");
             });
             app.UseSpa(spa =>
             {

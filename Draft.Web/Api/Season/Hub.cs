@@ -7,14 +7,16 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Draft.Web.Api
 {
-    public class PhaseHub : Hub<IPhaseHub>
+    public class SeasonHub : Hub<ISeasonHub>
     {
 
     }
 
-    public interface IPhaseHub
+    public interface ISeasonHub
     {
-        Task UpdatePhase(string phaseName);
+        Task UpdatePhase(PhaseViewModel phase);
         Task UpdateDate(DateTime date);
+        Task UpdateStandings(StandingsViewModel standings);
+
     }
 }
