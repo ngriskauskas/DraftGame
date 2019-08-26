@@ -12,6 +12,7 @@ namespace Draft.Inf.Data
     {
         private readonly static string teamData = "..\\Draft.Inf\\Data\\SeedData\\teams.json";
         private readonly static string phaseData = "..\\Draft.Inf\\Data\\SeedData\\phases.json";
+
         public static void InitLeague(this AppDbContext db)
         {
             using (db)
@@ -41,8 +42,8 @@ namespace Draft.Inf.Data
             db.RemoveAll<Phase>();
             db.RemoveAll<Season>();
             db.RemoveAll<Standings>();
-            db.Users.RemoveRange(db.Users.ToList());
         }
+
         private static void SeedTeams(AppDbContext db)
         {
             var teams = FileReader.GetCollection<Team>(teamData);

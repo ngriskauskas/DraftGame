@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Draft.Inf.Data
 {
 
-    public class AppDbContext : IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<AppUser, AppRole, int>
     {
         public DbSet<Player> Players { get; set; }
         public DbSet<Game> Games { get; set; }

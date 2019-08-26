@@ -6,6 +6,10 @@ using Draft.Inf.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Draft.Web.ViewModels;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using System;
 
 namespace Draft.Web.Api
 {
@@ -50,6 +54,19 @@ namespace Draft.Web.Api
                 TeamId = user.TeamId
             });
         }
+
+        // private async Task<TokenViewModel> GenerateToken(AppUser user)
+        // {
+        //     var claims = new List<Claim>
+        //     {
+        //         new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+        //         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        //         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        //         new Claim(ClaimTypes.Name, user.UserName)
+        //     };
+
+
+        // }
 
 
     }

@@ -4830,11 +4830,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.inf\\Draft.Inf.csproj",
+      "projectUniqueName": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Inf\\Draft.Inf.csproj",
       "projectName": "Draft.Inf",
-      "projectPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.inf\\Draft.Inf.csproj",
+      "projectPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Inf\\Draft.Inf.csproj",
       "packagesPath": "C:\\Users\\Noah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.inf\\obj\\",
+      "outputPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Inf\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

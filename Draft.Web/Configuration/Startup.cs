@@ -17,6 +17,10 @@ using Draft.Core.Services;
 using Draft.Inf.Identity;
 using Draft.Web.Api;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Draft.Web
 {
@@ -34,8 +38,9 @@ namespace Draft.Web
             services.AddDbContext<AppDbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentityCore<AppUser>()
-                .AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<AppUser, AppRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSpaStaticFiles(configuration =>
@@ -47,9 +52,34 @@ namespace Draft.Web
                 o.EnableDetailedErrors = true;
             });
 
+            services.AddAuthentication(options =>
+           {
+               options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+           })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.ClaimsIssuer = Configuration["Authentication:JwtIssuer"];
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = Configuration["Authentication:JwtIssuer"],
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Authentication:JwtAudience"],
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:JwtKey"])),
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
-
-            return BuildDIProvider(services);
+            var provider = BuildDIProvider(services);
+            IdentitySeeder.UserManager = provider.GetService<UserManager<AppUser>>();
+            IdentitySeeder.RoleManager = provider.GetService<RoleManager<AppRole>>();
+            return provider;
         }
 
         private static IServiceProvider BuildDIProvider(IServiceCollection services)
@@ -125,8 +155,9 @@ namespace Draft.Web
                 }
             });
 
-
-            provider.GetService<AppDbContext>().InitLeague();
+            var db = provider.GetService<AppDbContext>();
+            db.SeedIdentity();
+            db.InitLeague();
         }
     }
 }
