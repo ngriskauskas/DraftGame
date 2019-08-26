@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 
-namespace Draft.Web.Api
+namespace Draft.Web.ViewModels
 {
     public class TokenViewModel
     {

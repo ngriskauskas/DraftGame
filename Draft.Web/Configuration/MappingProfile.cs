@@ -1,6 +1,6 @@
 using AutoMapper;
 using Draft.Core.Entities;
-using Draft.Web.Api;
+using Draft.Web.ViewModels;
 
 namespace Draft.Web
 {
@@ -12,11 +12,9 @@ namespace Draft.Web
             CreateMap<Phase, PhaseViewModel>();
             CreateMap<Standings, StandingsViewModel>();
             CreateMap<ArcTeam, StandingsTeamViewModel>();
-
+            CreateMap<Player, PlayerViewModel>();
+            CreateMap<Waiver, WaiverViewModel>();
+            CreateMap<Team, TeamViewModel>();
         }
-
-
     }
-
-
 }

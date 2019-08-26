@@ -5,10 +5,13 @@ using Draft.Core.Interfaces;
 using Draft.Inf.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Draft.Web.ViewModels;
 
 namespace Draft.Web.Api
 {
-    public class RegisterController : BaseController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RegisterController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IRepository _repository;

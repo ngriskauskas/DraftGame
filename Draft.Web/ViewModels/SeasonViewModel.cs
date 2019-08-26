@@ -1,6 +1,6 @@
 using System;
 
-namespace Draft.Web.Api
+namespace Draft.Web.ViewModels
 {
     public class SeasonViewModel
     {

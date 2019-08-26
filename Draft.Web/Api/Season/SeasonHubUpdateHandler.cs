@@ -5,6 +5,7 @@ using Draft.Core.Entities;
 using Draft.Core.Events;
 using Draft.Core.Interfaces;
 using Microsoft.AspNetCore.SignalR;
+using Draft.Web.ViewModels;
 
 namespace Draft.Web.Api.Handlers
 {

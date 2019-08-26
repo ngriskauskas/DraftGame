@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Draft.Web.Api
+namespace Draft.Web.ViewModels
 {
     public class RegisterViewModel
     {

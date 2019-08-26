@@ -23,5 +23,6 @@ namespace Draft.Inf.Data
 
             return query;
         }
+
     }
 }
