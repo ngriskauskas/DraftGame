@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Draft.Core.Entities;
+using Draft.Inf.Identity;
 using Draft.Inf.Utils;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,6 +41,7 @@ namespace Draft.Inf.Data
             db.RemoveAll<Phase>();
             db.RemoveAll<Season>();
             db.RemoveAll<Standings>();
+            db.Users.RemoveRange(db.Users.ToList());
         }
         private static void SeedTeams(AppDbContext db)
         {

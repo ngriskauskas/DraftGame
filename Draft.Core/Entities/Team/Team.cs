@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Draft.Core.Events;
 using Draft.Core.SharedKernel;
 
 namespace Draft.Core.Entities
@@ -9,13 +10,15 @@ namespace Draft.Core.Entities
     public class Team : Aggregate
     {
 
-        public ICollection<Player> Players { get; set; }
+        public ICollection<Player> Players { get; private set; }
         public ICollection<Player> Starters { get; private set; }
         public string Name { get; private set; }
         public Division Division { get; private set; }
         public Record Record { get; private set; }
         public int OffRating { get; private set; }
         public int DefRating { get; private set; }
+
+        public int RosterSize => Players.Where(p => !p.IsInjured).Count();
 
         private Team(string name, Division division)
         {
@@ -27,6 +30,21 @@ namespace Draft.Core.Entities
             Record = record;
             Players = players;
         }
+
+        public void AddPlayer(Player player)
+        {
+            Players.Add(player);
+            UpdateStarters();
+            Events.Add(new TeamAddedPlayerEvent(Id, player));
+        }
+
+        public void RemovePlayer(Player player)
+        {
+            Players.Remove(player);
+            UpdateStarters();
+            Events.Add(new TeamRemovedPlayerEvent(Id, player.Id));
+        }
+
 
         public void ResetRecord()
         {
@@ -53,7 +71,6 @@ namespace Draft.Core.Entities
                 );
 
             Starters = result;
-
             UpdateRating();
         }
 

@@ -32,6 +32,7 @@ namespace Draft.Core.Entities
         }
         public bool IsRookie => Experience == 0;
         public int Rating => IsRookie ? RookieRating : VeteranRating;
+        public bool IsInjured => _injuries.Exists(i => i.IsActive);
         public SubRole SubRole => Position.GetSubRole();
         public Role Role => Position.GetRole();
 
@@ -39,11 +40,6 @@ namespace Draft.Core.Entities
         {
             Team = null;
             IsRetired = true;
-        }
-
-        public void Transfer(Team team = null)
-        {
-            Team = team;
         }
     }
 }

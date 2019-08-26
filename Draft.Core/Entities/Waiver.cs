@@ -18,7 +18,6 @@ namespace Draft.Core.Entities
         {
             _players.AddRange(players);
         }
-
         public void RemovePlayer(Player player)
         {
             _players.Remove(player);

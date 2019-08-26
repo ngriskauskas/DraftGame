@@ -24,10 +24,11 @@ namespace Draft.Web.Api
         }
 
         [HttpGet]
-        public SeasonViewModel Get()
+        public async Task<IActionResult> GetSeason()
         {
-            var season = _repository.Get(new CurrentSeasonWithStandingsPhase());
-            return _mapper.Map<Season, SeasonViewModel>(season);
+            var season = await _repository.GetAsync(new CurrentSeasonWithStandingsPhase());
+            var model = _mapper.Map<Season, SeasonViewModel>(season);
+            return Ok(model);
         }
     }
 }

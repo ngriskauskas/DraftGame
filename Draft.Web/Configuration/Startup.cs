@@ -76,6 +76,8 @@ namespace Draft.Web
 
 
             builder.RegisterType<LeagueService>();
+            builder.RegisterType<WaiverService>();
+            builder.RegisterType<TeamService>();
             builder.RegisterType<TimerService>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
