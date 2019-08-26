@@ -2,12 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Draft.Web.ViewModels
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
         [Required]
-        public int TeamId { get; set; }
-
+        public string Email { get; set; }
         [Required]
-        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }
