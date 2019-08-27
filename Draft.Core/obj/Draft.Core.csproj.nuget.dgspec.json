@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Core\\Draft.Core.csproj": {}
+    "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Core\\Draft.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Core\\Draft.Core.csproj": {
+    "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Core\\Draft.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Core\\Draft.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Core\\Draft.Core.csproj",
         "projectName": "Draft.Core",
-        "projectPath": "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Core\\Draft.Core.csproj",
+        "projectPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Core\\Draft.Core.csproj",
         "packagesPath": "C:\\Users\\Noah\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Core\\obj\\",
+        "outputPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

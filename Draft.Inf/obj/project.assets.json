@@ -4830,11 +4830,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Inf\\Draft.Inf.csproj",
+      "projectUniqueName": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Inf\\Draft.Inf.csproj",
       "projectName": "Draft.Inf",
-      "projectPath": "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Inf\\Draft.Inf.csproj",
+      "projectPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Inf\\Draft.Inf.csproj",
       "packagesPath": "C:\\Users\\Noah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Inf\\obj\\",
+      "outputPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Inf\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4853,8 +4853,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Core\\Draft.Core.csproj": {
-              "projectPath": "C:\\Users\\Noah\\source\\repos\\Draftgame\\Draft.Core\\Draft.Core.csproj"
+            "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Core\\Draft.Core.csproj": {
+              "projectPath": "C:\\Users\\Noah\\source\\repos\\DraftGame\\Draft.Core\\Draft.Core.csproj"
             }
           }
         }
