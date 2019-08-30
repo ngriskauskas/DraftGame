@@ -5,7 +5,7 @@ namespace Draft.Web.ViewModels
 {
     public class RefreshTokenViewModel
     {
-        [Required, JsonProperty("refresh_token")]
+        [Required, JsonProperty("refreshToken")]
         public string RefreshToken { get; set; }
     }
 }

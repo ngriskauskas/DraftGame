@@ -42,8 +42,7 @@ namespace Draft.Web.Api
             return Ok(model);
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> AddToWaiver([FromBody] int playerId)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -52,8 +51,7 @@ namespace Draft.Web.Api
             return Ok();
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> AcquireFromWaiver([FromBody] int playerId)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);

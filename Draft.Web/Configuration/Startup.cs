@@ -133,11 +133,14 @@ namespace Draft.Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseAuthentication();
+
 
             app.UseSignalR(routes =>
             {
                 routes.MapHub<TimerHub>("/hubs/timer");
                 routes.MapHub<SeasonHub>("/hubs/season");
+                routes.MapHub<TeamClaimHub>("/hubs/teamclaim");
             });
             app.UseMvc(routes =>
             {

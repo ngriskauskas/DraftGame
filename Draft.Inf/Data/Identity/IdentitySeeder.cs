@@ -12,6 +12,7 @@ namespace Draft.Inf.Identity
         {
             AddRoles(db);
             AddUsers(db);
+            ResetTeamManagerRole();
         }
         private static void AddRoles(AppDbContext db)
         {
@@ -21,8 +22,8 @@ namespace Draft.Inf.Identity
             if (RoleManager.RoleExistsAsync("TeamManager").GetAwaiter().GetResult() == false)
                 RoleManager.CreateAsync(new AppRole("TeamManager")).GetAwaiter().GetResult();
 
-            if (RoleManager.RoleExistsAsync("Spectator").GetAwaiter().GetResult() == false)
-                RoleManager.CreateAsync(new AppRole("Spectator")).GetAwaiter().GetResult();
+            if (RoleManager.RoleExistsAsync("User").GetAwaiter().GetResult() == false)
+                RoleManager.CreateAsync(new AppRole("User")).GetAwaiter().GetResult();
         }
         private static void AddUsers(AppDbContext db)
         {
@@ -37,6 +38,15 @@ namespace Draft.Inf.Identity
                 };
                 UserManager.CreateAsync(admin, "Hcpslink1!").GetAwaiter().GetResult();
                 UserManager.AddToRoleAsync(admin, "Admin").GetAwaiter().GetResult();
+            }
+        }
+        private static void ResetTeamManagerRole()
+        {
+            foreach (var user in UserManager.Users.ToList())
+            {
+                user.TeamId = 0;
+                UserManager.RemoveFromRoleAsync(user, "TeamManager").GetAwaiter().GetResult();
+                UserManager.UpdateAsync(user).GetAwaiter().GetResult();
             }
         }
     }

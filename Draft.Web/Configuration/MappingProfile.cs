@@ -15,6 +15,7 @@ namespace Draft.Web
             CreateMap<Player, PlayerViewModel>();
             CreateMap<Waiver, WaiverViewModel>();
             CreateMap<Team, TeamViewModel>();
+            CreateMap<Team, TeamClaimViewModel>();
         }
     }
 }

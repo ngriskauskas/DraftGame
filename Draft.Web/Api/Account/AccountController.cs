@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Draft.Web.Api
 {
@@ -26,7 +27,7 @@ namespace Draft.Web.Api
             _repository = repository;
         }
 
-        [HttpPost]
+        [HttpPost("[Action]")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -42,14 +43,18 @@ namespace Draft.Web.Api
                 UserName = model.UserName,
                 Email = model.Email,
                 EmailConfirmed = true,
-                LockoutEnabled = false
+                LockoutEnabled = false,
             };
 
             var registerResult = await _userManager.CreateAsync(user, model.Password);
 
-            await _userManager.AddToRoleAsync(user, "Spectator");
+            if (!registerResult.Succeeded)
+                return BadRequest("Invalid Info Supplied");
+            await _userManager.AddToRoleAsync(user, "User");
 
             return Ok();
         }
+
+
     }
 }

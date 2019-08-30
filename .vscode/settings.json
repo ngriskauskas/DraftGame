@@ -3,5 +3,8 @@
         "**/.vscode": true,
         "**/bin": true,
         "**/obj": true
-    }
+    },
+    "editor.formatOnSave": true,
+    "prettier.disableLanguages": [],
+    "prettier.jsxBracketSameLine": true
 }
