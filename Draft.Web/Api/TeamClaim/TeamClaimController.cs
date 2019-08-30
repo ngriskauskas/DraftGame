@@ -50,13 +50,15 @@ namespace Draft.Web.Api
             if (await _userManager.IsInRoleAsync(user, "TeamManager"))
                 _dispatcher.Dispatch(new TeamUnClaimedEvent(user.TeamId));
             else
+            {
                 await _userManager.AddToRoleAsync(user, "TeamManager");
+                _timerService.AddTeamManager(user.Id);
+            }
 
             user.TeamId = teamId;
             await _userManager.UpdateAsync(user);
             _dispatcher.Dispatch(new TeamClaimedEvent(teamId));
 
-            _timerService.AddTeamManager(user.Id);
             return Ok();
         }
 
