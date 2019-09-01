@@ -27,14 +27,14 @@ namespace Draft.Web.Api
             _mapper = mapper;
         }
 
-        [HttpGet]
-        [Authorize(Roles = "TeamManager")]
-        public async Task<IActionResult> GetTeam()
-        {
-            var user = await _userManager.GetAppUser(HttpContext.User);
-            var team = await _repository.GetAsync(new FullTeam(user.TeamId));
-            var model = _mapper.Map<Team, TeamViewModel>(team);
-            return Ok(model);
-        }
+        // [HttpGet]
+        // [Authorize(Roles = "TeamManager")]
+        // public async Task<IActionResult> GetTeam()
+        // {
+        //     var user = await _userManager.GetAppUser(HttpContext.User);
+        //     var team = await _repository.GetAsync(new FullTeam(user.TeamId));
+        //     var model = _mapper.Map<Team, TeamViewModel>(team);
+        //     return Ok(model);
+        // }
     }
 }

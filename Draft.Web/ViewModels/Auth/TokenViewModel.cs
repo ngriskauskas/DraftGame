@@ -11,6 +11,7 @@ namespace Draft.Web.ViewModels
         [JsonProperty("refreshToken")]
         public string RefreshToken { get; set; }
         public string UserName { get; set; }
+        public int? TeamId { get; set; }
         public IEnumerable<string> Roles { get; set; }
     }
 }

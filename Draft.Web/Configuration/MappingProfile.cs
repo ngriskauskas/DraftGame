@@ -15,6 +15,7 @@ namespace Draft.Web
             CreateMap<Waiver, WaiverViewModel>();
             CreateMap<Team, TeamViewModel>();
             CreateMap<Team, TeamClaimViewModel>();
+            CreateMap<Record, RecordViewModel>();
             CreateMap<Player, PlayerViewModel>()
                 .ForMember(p => p.IsStarter, opt => opt.MapFrom<IsStarterResolver>());
         }

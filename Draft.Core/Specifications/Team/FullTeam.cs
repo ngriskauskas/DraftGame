@@ -6,7 +6,7 @@ namespace Draft.Core.Specifications
 {
     public class FullTeam : BaseSpecification<Team>
     {
-        public FullTeam(int teamId) : base(t => t.Id == teamId)
+        public FullTeam() : base(null)
         {
             AddInclude(t => t.Record);
             AddInclude(t => t.Players);

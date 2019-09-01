@@ -21,12 +21,13 @@ namespace Draft.Web.Api
             _repository = repository;
             _mapper = mapper;
         }
-        //     [HttpGet]
-        //     public async Task<IActionResult> GetTeams()
-        //     {
-        //         var teams = await _repository.ListAsync<Team>(new FullTeam());
-        //         var model = _mapper.Map<List<Team>, List<TeamViewModel>>(teams);
-        //         return Ok(model);
-        //     }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTeams()
+        {
+            var teams = await _repository.ListAsync<Team>(new FullTeam());
+            var model = _mapper.Map<List<Team>, List<TeamViewModel>>(teams);
+            return Ok(model);
+        }
     }
 }

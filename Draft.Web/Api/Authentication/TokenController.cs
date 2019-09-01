@@ -93,7 +93,8 @@ namespace Draft.Web.Api
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 RefreshToken = refreshToken,
                 UserName = user.UserName,
-                Roles = roles
+                TeamId = (user.TeamId == 0) ? (int?)null : user.TeamId,
+                Roles = roles,
             };
         }
 
