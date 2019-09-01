@@ -14,15 +14,6 @@ namespace Draft.Web.Api
     }
     public class TimerHub : Hub<ITimerHub>
     {
-        private readonly LeagueService _testService;
-        public TimerHub(LeagueService testService)
-        {
-            _testService = testService;
-        }
 
-        public void StartTimer()
-        {
-            _testService.StartLeague();
-        }
     }
 }
