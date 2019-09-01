@@ -35,17 +35,15 @@ namespace Draft.Core.Entities
         {
             Players.Add(player);
             UpdateStarters();
-            Events.Add(new TeamAddedPlayerEvent(Id, player));
+            Events.Add(new TeamChangedEvent(Id));
         }
 
         public void RemovePlayer(Player player)
         {
             Players.Remove(player);
             UpdateStarters();
-            Events.Add(new TeamRemovedPlayerEvent(Id, player.Id));
+            Events.Add(new TeamChangedEvent(Id));
         }
-
-
         public void ResetRecord()
         {
             Record.Wins = 0;

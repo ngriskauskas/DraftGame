@@ -141,6 +141,7 @@ namespace Draft.Web
                 routes.MapHub<TimerHub>("/hubs/timer");
                 routes.MapHub<SeasonHub>("/hubs/season");
                 routes.MapHub<TeamClaimHub>("/hubs/teamclaim");
+                routes.MapHub<TeamHub>("/hubs/teams");
             });
             app.UseMvc(routes =>
             {

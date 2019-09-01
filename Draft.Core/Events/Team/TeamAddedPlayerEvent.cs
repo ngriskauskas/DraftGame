@@ -3,15 +3,13 @@ using Draft.Core.SharedKernel;
 
 namespace Draft.Core.Events
 {
-    public class TeamAddedPlayerEvent : DomainEvent
+    public class TeamChangedEvent : DomainEvent
     {
         public int TeamId { get; set; }
-        public Player Player { get; set; }
 
-        public TeamAddedPlayerEvent(int teamId, Player player)
+        public TeamChangedEvent(int teamId)
         {
             TeamId = teamId;
-            Player = player;
         }
     }
 }
