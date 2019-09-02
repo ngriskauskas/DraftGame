@@ -62,6 +62,7 @@ namespace Draft.Core.Handlers
                 }
             }
             _repository.UpdateRange(_teams);
+            _dispatcher.Dispatch(new TeamRecordsChangedEvent());
         }
         private void UpdateStandings()
         {

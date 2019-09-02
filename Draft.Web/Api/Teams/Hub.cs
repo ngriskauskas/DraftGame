@@ -12,6 +12,6 @@ namespace Draft.Web.Api
     public interface ITeamHub
     {
         Task TeamChanged(TeamViewModel team);
-
+        Task TeamRecordsChanged(TeamViewModel[] teams);
     }
 }
