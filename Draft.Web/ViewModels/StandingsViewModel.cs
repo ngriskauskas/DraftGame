@@ -5,7 +5,7 @@ namespace Draft.Web.ViewModels
         public string ChampionName { get; set; }
         public string WestChampName { get; set; }
         public string EastChampName { get; set; }
-        public StandingsTeamViewModel[] EastStandings { get; set; }
-        public StandingsTeamViewModel[] WestStandings { get; set; }
+        public TeamRecordViewModel[] EastStandings { get; set; }
+        public TeamRecordViewModel[] WestStandings { get; set; }
     }
 }
