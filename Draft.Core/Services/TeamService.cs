@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Draft.Core.Entities;
 using Draft.Core.Interfaces;
@@ -14,23 +15,23 @@ namespace Draft.Core.Services
             _repository = repository;
         }
 
-        public async Task RemovePlayerAsync(int teamId, int playerId)
+        public async Task RemovePlayersAsync(int teamId, List<int> playerIds)
         {
             var team = await _repository.GetAsync(new TeamWithPlayers(teamId));
-            var player = await _repository.GetByIdAsync<Player>(playerId);
-            team.RemovePlayer(player);
+            team.RemovePlayers(playerIds);
             await _repository.UpdateAsync(team);
         }
 
-        public async Task<bool> AddPlayerAsync(int teamId, int playerId)
+        public async Task<bool> AddPlayersAsync(int teamId, List<int> playerIds)
         {
             var season = await _repository.GetAsync(new CurrentSeasonWithPhase());
             var team = await _repository.GetAsync(new TeamWithPlayers(teamId));
-            var player = await _repository.GetByIdAsync<Player>(playerId);
 
-            if (season.CurPhase.MaxRosterSize <= team.RosterSize) return false;
+            if (season.CurPhase.MaxRosterSize <= team.RosterSize + playerIds.Count) return false;
 
-            team.AddPlayer(player);
+            var players = await _repository.ListAsync<Player>(new PlayersById(playerIds));
+
+            team.AddPlayers(players);
             await _repository.UpdateAsync(team);
             return true;
         }

@@ -9,21 +9,16 @@ namespace Draft.Core.Entities
     {
         public List<Player> Players { get; private set; }
 
-
-        public void AddPlayer(Player player)
-        {
-            Players.Add(player);
-            Events.Add(new WaiverPlayerAddedEvent(player));
-        }
         public void AddPlayers(IEnumerable<Player> players)
         {
             Players.AddRange(players);
+            Events.Add(new WaiverPlayersAddedEvent(players));
         }
-        public void RemovePlayer(Player player)
-        {
-            Players.Remove(player);
-            Events.Add(new WaiverPlayerRemovedEvent(player.Id));
 
+        public void RemovePlayers(List<int> playerIds)
+        {
+            Players.RemoveAll(p => playerIds.Contains(p.Id));
+            Events.Add(new WaiverPlayersRemovedEvent(playerIds));
         }
     }
 }

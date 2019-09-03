@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Draft.Core.Entities;
@@ -15,24 +16,23 @@ namespace Draft.Core.Services
             _repository = repository;
         }
 
-        public async Task AddPlayerAsync(int playerId)
+        public async Task AddPlayersAsync(List<int> playerIds)
         {
             var season = await _repository.GetAsync(new CurrentSeasonWithWaiver());
             var waiver = season.Waiver;
-            var player = await _repository.GetByIdAsync<Player>(playerId);
-
-            waiver.AddPlayer(player);
+            var players = await _repository.ListAsync(new PlayersById(playerIds));
+            waiver.AddPlayers(players);
             await _repository.UpdateAsync(waiver);
         }
 
-        public async Task<bool> RemovePlayerAsync(int playerId)
+        public async Task<bool> RemovePlayersAsync(List<int> playerIds)
         {
             var season = await _repository.GetAsync(new CurrentSeasonWithWaiver());
             var waiver = season.Waiver;
-            var player = await _repository.GetByIdAsync<Player>(playerId);
-            if (!waiver.Players.Contains(player)) return false;
 
-            waiver.RemovePlayer(player);
+            if (!playerIds.All(id => waiver.Players.Any(p => p.Id == id))) return false;
+
+            waiver.RemovePlayers(playerIds);
             _repository.Update(waiver);
             return true;
         }

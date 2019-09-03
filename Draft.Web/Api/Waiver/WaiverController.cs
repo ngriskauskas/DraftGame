@@ -45,24 +45,24 @@ namespace Draft.Web.Api
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddToWaiver([FromBody] int[] playerIds)
+        public async Task<IActionResult> AddToWaiver([FromBody] List<int> playerIds)
         {
             var user = await _userManager.GetAppUser(HttpContext.User);
-            foreach (int playerId in playerIds)
-            {
-                await _teamService.RemovePlayerAsync(user.TeamId, playerId);
-                await _waiverService.AddPlayerAsync(playerId);
-            }
+
+            await _teamService.RemovePlayersAsync(user.TeamId, playerIds);
+            await _waiverService.AddPlayersAsync(playerIds);
+
             return Ok();
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AcquireFromWaiver([FromBody] int playerId)
+        public async Task<IActionResult> RemoveFromWaiver([FromBody] List<int> playerIds)
         {
             var user = await _userManager.GetAppUser(HttpContext.User);
-            var result = await _teamService.AddPlayerAsync(user.TeamId, playerId);
-            if (!result) return BadRequest("Roster already at Player Cap");
-            await _waiverService.RemovePlayerAsync(playerId);
+
+            var result = await _teamService.AddPlayersAsync(user.TeamId, playerIds);
+            if (!result) return BadRequest("Roster over player Cap");
+            await _waiverService.RemovePlayersAsync(playerIds);
             return Ok();
         }
     }

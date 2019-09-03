@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 using Draft.Core.Entities;
 using Draft.Core.Events;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Draft.Web.Api
 {
-    public class WaiverHubUpdateHandler : IHandle<WaiverPlayerAddedEvent>, IHandle<WaiverPlayerRemovedEvent>
+    public class WaiverHubUpdateHandler : IHandle<WaiverPlayersAddedEvent>, IHandle<WaiverPlayersRemovedEvent>
     {
         private readonly IHubContext<WaiverHub, IWaiverHub> _waiverHub;
         private readonly IMapper _mapper;
@@ -17,14 +18,14 @@ namespace Draft.Web.Api
             _waiverHub = waiverHub;
             _mapper = mapper;
         }
-        public void Handle(WaiverPlayerAddedEvent domainEvent)
+        public void Handle(WaiverPlayersAddedEvent domainEvent)
         {
-            var playerModel = _mapper.Map<Player, WaiverPlayerViewModel>(domainEvent.Player);
-            _waiverHub.Clients.All.AddPlayer(playerModel);
+            var playerModels = _mapper.Map<IEnumerable<Player>, WaiverPlayerViewModel[]>(domainEvent.Players);
+            _waiverHub.Clients.All.AddPlayers(playerModels);
         }
-        public void Handle(WaiverPlayerRemovedEvent domainEvent)
+        public void Handle(WaiverPlayersRemovedEvent domainEvent)
         {
-            _waiverHub.Clients.All.RemovePlayer(domainEvent.PlayerId);
+            _waiverHub.Clients.All.RemovePlayers(domainEvent.PlayerIds);
         }
 
 

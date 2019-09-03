@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Draft.Web.ViewModels;
 using Microsoft.AspNetCore.SignalR;
@@ -10,7 +11,7 @@ namespace Draft.Web.Api
     }
     public interface IWaiverHub
     {
-        Task AddPlayer(WaiverPlayerViewModel player);
-        Task RemovePlayer(int playerId);
+        Task AddPlayers(IEnumerable<WaiverPlayerViewModel> players);
+        Task RemovePlayers(IEnumerable<int> playerIds);
     }
 }

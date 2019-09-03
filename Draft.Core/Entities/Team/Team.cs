@@ -10,8 +10,8 @@ namespace Draft.Core.Entities
     public class Team : Aggregate
     {
 
-        public ICollection<Player> Players { get; private set; }
-        public ICollection<Player> Starters { get; private set; }
+        public List<Player> Players { get; private set; }
+        public List<Player> Starters { get; private set; }
         public string Name { get; private set; }
         public Division Division { get; private set; }
         public Record Record { get; private set; }
@@ -31,16 +31,17 @@ namespace Draft.Core.Entities
             Players = players;
         }
 
-        public void AddPlayer(Player player)
+
+        public void AddPlayers(IEnumerable<Player> players)
         {
-            Players.Add(player);
+            Players.AddRange(players);
             UpdateStarters();
-            Events.Add(new TeamChangedEvent(Id));
+            Events.Add(new WaiverPlayersAddedEvent(players));
         }
 
-        public void RemovePlayer(Player player)
+        public void RemovePlayers(List<int> playerIds)
         {
-            Players.Remove(player);
+            Players.RemoveAll(p => playerIds.Contains(p.Id));
             UpdateStarters();
             Events.Add(new TeamChangedEvent(Id));
         }
