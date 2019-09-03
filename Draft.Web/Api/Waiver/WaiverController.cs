@@ -40,7 +40,7 @@ namespace Draft.Web.Api
         public async Task<IActionResult> GetWaiver()
         {
             var season = await _repository.GetAsync(new CurrentSeasonWithWaiver());
-            var model = _mapper.Map<List<Player>, WaiverPlayerViewModel[]>(season.Waiver.Players);
+            var model = _mapper.Map<List<Player>, PlayerViewModel[]>(season.Waiver.Players);
             return Ok(model);
         }
 

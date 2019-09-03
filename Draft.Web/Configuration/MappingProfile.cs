@@ -15,17 +15,25 @@ namespace Draft.Web
             CreateMap<Team, TeamViewModel>();
             CreateMap<Team, TeamClaimViewModel>();
             CreateMap<Record, RecordViewModel>();
-            CreateMap<Player, WaiverPlayerViewModel>();
-            CreateMap<Player, TeamPlayerViewModel>()
-                .ForMember(p => p.IsStarter, opt => opt.MapFrom<IsStarterResolver>());
+            CreateMap<Player, PlayerViewModel>()
+                .ForMember(p => p.IsStarter, opt => opt.MapFrom<PlayerResolver>())
+                .ForMember(p => p.TeamName, opt => opt.MapFrom<PlayerResolver>());
         }
     }
-    class IsStarterResolver : IValueResolver<Player, TeamPlayerViewModel, bool>
+    class PlayerResolver : IValueResolver<Player, PlayerViewModel, bool>,
+        IValueResolver<Player, PlayerViewModel, string>
     {
-        public bool Resolve(Player source, TeamPlayerViewModel destination,
+        public bool Resolve(Player source, PlayerViewModel destination,
                             bool destMember, ResolutionContext context)
         {
+            if (source.Team == null) return false;
             return source.Team.Starters.Contains(source);
+        }
+
+        public string Resolve(Player source, PlayerViewModel destination, string destMember, ResolutionContext context)
+        {
+            if (source.Team == null) return "Waiver";
+            return source.Team.Name;
         }
     }
 }

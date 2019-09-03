@@ -13,6 +13,8 @@ namespace Draft.Core.Entities
         {
             Players.AddRange(players);
             Events.Add(new WaiverPlayersAddedEvent(players));
+            foreach (var player in players)
+                Events.Add(new PlayerChangedEvent(player));
         }
 
         public void RemovePlayers(List<int> playerIds)

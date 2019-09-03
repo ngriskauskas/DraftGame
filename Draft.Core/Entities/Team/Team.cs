@@ -36,7 +36,9 @@ namespace Draft.Core.Entities
         {
             Players.AddRange(players);
             UpdateStarters();
-            Events.Add(new WaiverPlayersAddedEvent(players));
+            Events.Add(new TeamChangedEvent(Id));
+            foreach (var player in players)
+                Events.Add(new PlayerChangedEvent(player));
         }
 
         public void RemovePlayers(List<int> playerIds)

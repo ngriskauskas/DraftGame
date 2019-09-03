@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Draft.Core.Events;
 using Draft.Core.SharedKernel;
 
 namespace Draft.Core.Entities
@@ -40,6 +41,7 @@ namespace Draft.Core.Entities
         {
             Team = null;
             IsRetired = true;
+            Events.Add(new PlayerChangedEvent(this));
         }
     }
 }

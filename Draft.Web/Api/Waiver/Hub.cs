@@ -11,7 +11,7 @@ namespace Draft.Web.Api
     }
     public interface IWaiverHub
     {
-        Task AddPlayers(IEnumerable<WaiverPlayerViewModel> players);
+        Task AddPlayers(IEnumerable<PlayerViewModel> players);
         Task RemovePlayers(IEnumerable<int> playerIds);
     }
 }

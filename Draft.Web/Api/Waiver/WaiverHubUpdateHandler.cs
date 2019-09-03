@@ -20,7 +20,7 @@ namespace Draft.Web.Api
         }
         public void Handle(WaiverPlayersAddedEvent domainEvent)
         {
-            var playerModels = _mapper.Map<IEnumerable<Player>, WaiverPlayerViewModel[]>(domainEvent.Players);
+            var playerModels = _mapper.Map<IEnumerable<Player>, PlayerViewModel[]>(domainEvent.Players);
             _waiverHub.Clients.All.AddPlayers(playerModels);
         }
         public void Handle(WaiverPlayersRemovedEvent domainEvent)

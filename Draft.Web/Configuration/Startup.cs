@@ -143,6 +143,7 @@ namespace Draft.Web
                 routes.MapHub<TeamClaimHub>("/hubs/teamclaim");
                 routes.MapHub<TeamHub>("/hubs/teams");
                 routes.MapHub<WaiverHub>("/hubs/waiver");
+                routes.MapHub<PlayerHub>("/hubs/player");
             });
             app.UseMvc(routes =>
             {
